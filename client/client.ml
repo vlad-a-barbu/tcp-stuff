@@ -17,7 +17,7 @@ let connect_local_tcp port timeout_s =
 let () =
   let port = 3000
   and timeout_s = 5.0
-  and n = 1_000_000 in
+  and n = if Array.length Sys.argv < 2 then 1_000_000 else int_of_string Sys.argv.(1) in
   match connect_local_tcp port timeout_s with
   | Ok sock ->
     (match Helpers.send_tcp sock @@ Bytes.create n with
